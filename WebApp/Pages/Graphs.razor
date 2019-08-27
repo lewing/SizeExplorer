@@ -8,14 +8,13 @@
 
 <div class="dropdown">
   <button class="dropbtn btn">View Graphs for App</button>
-
   <div class="dropdown-content">
     @if (apps == null) {
         <p><em>Loading...</em></p>
     } else {
         @foreach (var app in apps)
         {
-            <button onclick=@(()=>Graph(app, false))>@app</button>
+            <button @onclick="@( e => Graph(app, false) )">@app</button>
         }
     }
     </div>
@@ -53,8 +52,13 @@
         displayed = new bool[apps.Length];
     }
 
+<<<<<<< HEAD
     protected override async Task OnInitAsync() {
         info = await History.LibraryTable.LoadHistory(graph);
+=======
+    protected override async Task OnInitializedAsync() {
+        info = await History.LibraryTable.LoadHistory();
+>>>>>>> master
         apps = info.Keys.ToArray();
         displayed = new bool[apps.Length];
     }

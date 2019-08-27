@@ -3,7 +3,6 @@
 @inject IJSRuntime JsRuntime;
 @using Newtonsoft.Json;
 
-
 <h1>Linker Graphs from @graph</h1>
 
 <div class="dropdown">
@@ -15,7 +14,7 @@
     } else {
         @foreach (var app in apps)
         {
-            <button onclick=@(()=>Graph(app, false))>@app</button>
+            <button @onclick="@( e => Graph(app, false) )">@app</button>
         }
     }
     </div>
@@ -45,7 +44,6 @@
             await JsRuntime.InvokeAsync<string>("graph", json);
             await JsRuntime.InvokeAsync<string>("areaGraph", json);
         }
-        
     }
 
     private async void clear() {
@@ -53,7 +51,7 @@
         displayed = new bool[apps.Length];
     }
 
-    protected override async Task OnInitAsync() {
+    protected override async Task OnInitializedAsync() {
         info = await History.LibraryTable.LoadHistory(graph);
         apps = info.Keys.ToArray();
         displayed = new bool[apps.Length];

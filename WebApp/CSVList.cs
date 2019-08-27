@@ -27,6 +27,7 @@ class CSVList {
 
             return JsonConvert.DeserializeAnonymousType (data, obj).Where(o => o.name.Substring(o.name.Length-3) == "csv").Select( o=> ValueTuple.Create(o.name, o.path)).ToArray();
         } catch (Exception e) {
+            Console.WriteLine(e.ToString());
             return Array.Empty<(string name, string path)>();
         }
     }

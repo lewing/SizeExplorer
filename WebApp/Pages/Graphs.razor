@@ -1,14 +1,14 @@
-@page "/"
+@page "/graphs/{graph}"
 @inject HttpClient Http
 @inject IJSRuntime JsRuntime;
 @using Newtonsoft.Json;
 
 
-<h1>Linker Graphs</h1>
+<h1>Linker Graphs from @graph</h1>
 
 <div class="dropdown">
   <button class="dropbtn btn">View Graphs for App</button>
-  <button onclick="@clear" class="btn btn-danger">Clear all graphs</button>
+
   <div class="dropdown-content">
     @if (apps == null) {
         <p><em>Loading...</em></p>
@@ -20,11 +20,16 @@
     }
     </div>
 </div>
+  <button onclick="clear" class="btn btn-danger">Clear all graphs</button>
+  <button onclick="window.location.href = '/';" class="btn btn-primary">Go back</button>
 
 @code {  
     Dictionary<string, List<History.Info>> info;
     string[] apps;
     bool[] displayed;
+
+    [Parameter]
+    public string graph { get; set; }
 
     private async Task Graph(string app, bool area) {
         int index = Array.IndexOf(apps, app);
@@ -49,7 +54,7 @@
     }
 
     protected override async Task OnInitAsync() {
-        info = await History.LibraryTable.LoadHistory();
+        info = await History.LibraryTable.LoadHistory(graph);
         apps = info.Keys.ToArray();
         displayed = new bool[apps.Length];
     }

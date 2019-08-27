@@ -25,9 +25,9 @@ namespace History {
     class LibraryTable {
         static HttpClient client = new HttpClient();
         
-        public static async Task<Dictionary<string, List<Info>>> LoadHistory()
+        public static async Task<Dictionary<string, List<Info>>> LoadHistory(string name)
         {
-            string path = "mcs/tools/linker/wasm-linked-size.csv";
+            string path = "mcs/tools/linker/" + name + ".csv";
             string repo = "mono/mono";
             var items = new Dictionary<string, Commit> ();
             var allApps = new Dictionary<string, List<Info>> ();

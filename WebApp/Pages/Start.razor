@@ -1,0 +1,30 @@
+@page "/"
+
+
+<h1>Choose CSV</h1>
+
+<div class="dropdown">
+    <button class="dropbtn btn">View Graphs for App</button>
+    <div class="dropdown-content">
+        @if (csvs == null) {
+            <p><em>Loading...</em></p>
+        } else {
+            @foreach(var file in csvs) {
+                var name = file.name.Substring(0, file.name.Length-4);
+                var link = "window.location.href = '/graphs/" + @name + "';";
+                <button onclick=@link>@file.name</button>
+            }
+        }
+    </div>
+</div>
+
+
+
+
+@code {
+    (string name, string path)[] csvs;
+
+    protected override async Task OnInitAsync() {
+        csvs = await CSVList.GetList();
+    }
+}

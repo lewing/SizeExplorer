@@ -45,6 +45,9 @@ function displayTreemap(data) {
         
     if (flower) {
         var svg = d3v4.select('#'+el_id).append("svg")
+        .transition()
+            .duration(100)
+            .ease("elastic")
         .attr("id", "flower-tree")
         .attr("width", width)
         .attr("height", height)
@@ -55,6 +58,8 @@ function displayTreemap(data) {
         .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
             .style("shape-rendering", "crispEdges");
+
+   
     } else{
         var svg = d3v4.select('#'+el_id).append("svg")
         .attr("width", width + margin.left + margin.right)
